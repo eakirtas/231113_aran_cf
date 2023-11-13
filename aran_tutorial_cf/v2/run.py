@@ -1,6 +1,8 @@
 import argparse
 import logging
 
+from aran_tutorial_cf.v2.generate import generete_data_at, load_data
+
 
 def get_args():
 
@@ -23,16 +25,35 @@ if __name__ == '__main__':
     )
 
     parser.add_argument(
-        '--generate-at',
-        help='generates data at a file',
+        'data_path',
+        help='path to data',
         type=str,
-        default='./data/generated_data.npz',
+        default='./data/',
     )
 
     parser.add_argument('--num_points',
                         help='the number of points to generate',
                         type=int,
                         default=50)
+
+    parser.add_argument('--function',
+                        help='use function to generate data',
+                        type=str,
+                        choices=['x', 'f_x', 'g_x', 'h_x'],
+                        default=['x', 'f_x', 'g_x', 'h_x'],
+                        nargs='+')
+
+    parser.add_argument("--generate",
+                        "-g",
+                        help='generate data',
+                        default=False,
+                        action='store_true')
+
+    parser.add_argument("--load",
+                        "-l",
+                        help='loads data',
+                        default=False,
+                        action='store_true')
 
     args = parser.parse_args()
 
@@ -43,11 +64,7 @@ if __name__ == '__main__':
         level=getattr(logging, args.log.upper(), None),
     )
 
-    logging.info('This is an info message')
-    logging.debug('This is a debug message')
-    logging.warning('This is a warning message')
-    logging.error('This is an error message')
-    logging.critical('This is a critical')
-
-    logging.debug(f'Function used: {args.function}')
-    logging.debug(f'File to export: {args.generate_at}')
+    if args.generate:
+        generete_data_at(args.data_path, args.num_points, args.function)
+    if args.load:
+        load_data(args.data_path, args.function)
