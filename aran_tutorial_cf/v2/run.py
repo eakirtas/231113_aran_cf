@@ -2,6 +2,7 @@ import argparse
 import logging
 
 from aran_tutorial_cf.v2.generate import generete_data_at, load_data
+from aran_tutorial_cf.v2.visualize import visualize
 
 
 def get_args():
@@ -55,6 +56,11 @@ if __name__ == '__main__':
                         default=False,
                         action='store_true')
 
+    parser.add_argument("--visualize",
+                        help='visualize data',
+                        default=False,
+                        action='store_true')
+
     args = parser.parse_args()
 
     logging.basicConfig(
@@ -67,4 +73,7 @@ if __name__ == '__main__':
     if args.generate:
         generete_data_at(args.data_path, args.num_points, args.function)
     if args.load:
-        load_data(args.data_path, args.function)
+        data_dict = load_data(args.data_path, args.function)
+    if args.visualize:
+        data_dict = load_data(args.data_path, args.function)
+        visualize(data_dict)
