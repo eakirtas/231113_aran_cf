@@ -22,23 +22,24 @@ def generete_data_at(path, num_of_points, list_of_data):
 
     for data_name in list_of_data:
         if 'x' == data_name:
-            np.savetxt(path + 'x.csv', x)
+            np.savetxt(path + 'x.csv', x, delimiter=',')
         elif 'f_x' == data_name:
             f_x = f(x)
-            np.savetxt(path + 'f_x.csv', f_x)
+            np.savetxt(path + 'f_x.csv', f_x, delimiter=',')
         elif 'h_x' == data_name:
             h_x = h(x)
-            np.savetxt(path + 'h_x.csv', h_x)
+            np.savetxt(path + 'h_x.csv', h_x, delimiter=',')
         elif 'g_x' == data_name:
             g_x = g(x)
-            np.savetxt(path + 'g_x.csv', g_x)
+            np.savetxt(path + 'g_x.csv', g_x, delimiter=',')
 
 
 def load_data(path, list_of_data):
     data_dict = {}
 
     for data_name in list_of_data:
-        data_dict[data_name] = np.loadtxt(path + "/" + data_name + '.csv')
+        data_dict[data_name] = np.loadtxt(path + "/" + data_name + '.csv',
+                                          delimiter=',')
 
     logging.debug(data_dict)
 

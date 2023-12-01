@@ -15,18 +15,18 @@ if __name__ == '__main__':
     )
 
     parser.add_argument(
+        'data_path',
+        help='path to data',
+        type=str,
+        default='./data/',
+    )
+
+    parser.add_argument(
         '--log',
         help='logging level',
         choices=['info', 'debug', 'warning', 'error', 'critical'],
         type=str,
         default='WARNING',
-    )
-
-    parser.add_argument(
-        '--generate-at',
-        help='generates data at a file',
-        type=str,
-        default='./data/generated_data.npz',
     )
 
     parser.add_argument('--num_points',
@@ -49,5 +49,5 @@ if __name__ == '__main__':
     logging.error('This is an error message')
     logging.critical('This is a critical')
 
-    logging.debug(f'Function used: {args.function}')
-    logging.debug(f'File to export: {args.generate_at}')
+    logging.debug(f'Num points: {args.num_points}')
+    logging.debug(f'File to export: {args.data_path}')
